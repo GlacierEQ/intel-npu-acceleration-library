@@ -1,4 +1,3 @@
-
 #
 # Copyright © 2024 Intel Corporation
 # SPDX-License-Identifier: Apache 2.0
@@ -50,30 +49,14 @@ class SDPA(NNFactory):
         """Run the scaled dot product attention kernel.
 
         Args:
-            query (np.ndarray): Query tensor of shape (batch_size, num_heads, seq_len, head_dim)
-            key (np.ndarray): Key tensor of shape (batch_size, num_heads, seq_len, head_dim)
-            value (np.ndarray): Value tensor of shape (batch_size, num_heads, seq_len, head_dim)
-            mask (np.ndarray): Attention mask tensor of shape (batch_size, num_heads, seq_len, seq_len)
+            query (np.ndarray): sdpa query tensor
+            key (np.ndarray): sdpa key tensor
+            value (np.ndarray): sdpa value tensor
+            mask (np.ndarray): sdpa mask tensor
 
         Returns:
-            np.ndarray: The attention output tensor of shape (batch_size, num_heads, seq_len, head_dim)
-
-        Raises:
-            ValueError: If input tensors have invalid shapes or types
+            np.ndarray: result
         """
-        # Input validation
-        if query.ndim != 4 or key.ndim != 4 or value.ndim != 4 or mask.ndim != 4:
-            raise ValueError("All input tensors must be 4-dimensional")
-            
-        if query.shape != self.query.shape:
-            raise ValueError(f"Query tensor shape {query.shape} doesn't match expected shape {self.query.shape}")
-        if key.shape != self.key.shape:
-            raise ValueError(f"Key tensor shape {key.shape} doesn't match expected shape {self.key.shape}")
-        if value.shape != self.value.shape:
-            raise ValueError(f"Value tensor shape {value.shape} doesn't match expected shape {self.value.shape}")
-        if mask.shape != self.mask.shape:
-            raise ValueError(f"Mask tensor shape {mask.shape} doesn't match expected shape {self.mask.shape}")
-
         return super().run(query, key, value, mask)
 
 
@@ -111,28 +94,14 @@ class SimpleSDPA(NNFactory):
         self.compile()
 
     def run(self, query: np.ndarray, key: np.ndarray, value: np.ndarray) -> np.ndarray:
-        """Run the scaled dot product attention kernel without mask.
+        """Run the scaled dot product attention kernel.
 
         Args:
-            query (np.ndarray): Query tensor of shape (batch_size, num_heads, seq_len, head_dim)
-            key (np.ndarray): Key tensor of shape (batch_size, num_heads, seq_len, head_dim)
-            value (np.ndarray): Value tensor of shape (batch_size, num_heads, seq_len, head_dim)
+            query (np.ndarray): sdpa query tensor
+            key (np.ndarray): sdpa key tensor
+            value (np.ndarray): sdpa value tensor
 
         Returns:
-            np.ndarray: The attention output tensor of shape (batch_size, num_heads, seq_len, head_dim)
-
-        Raises:
-            ValueError: If input tensors have invalid shapes or types
+            np.ndarray: result
         """
-        # Input validation
-        if query.ndim != 4 or key.ndim != 4 or value.ndim != 4:
-            raise ValueError("All input tensors must be 4-dimensional")
-            
-        if query.shape != self.query.shape:
-            raise ValueError(f"Query tensor shape {query.shape} doesn't match expected shape {self.query.shape}")
-        if key.shape != self.key.shape:
-            raise ValueError(f"Key tensor shape {key.shape} doesn't match expected shape {self.key.shape}")
-        if value.shape != self.value.shape:
-            raise ValueError(f"Value tensor shape {value.shape} doesn't match expected shape {self.value.shape}")
-
         return super().run(query, key, value)

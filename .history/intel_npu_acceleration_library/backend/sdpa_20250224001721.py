@@ -1,4 +1,3 @@
-
 #
 # Copyright © 2024 Intel Corporation
 # SPDX-License-Identifier: Apache 2.0
@@ -126,13 +125,3 @@ class SimpleSDPA(NNFactory):
         """
         # Input validation
         if query.ndim != 4 or key.ndim != 4 or value.ndim != 4:
-            raise ValueError("All input tensors must be 4-dimensional")
-            
-        if query.shape != self.query.shape:
-            raise ValueError(f"Query tensor shape {query.shape} doesn't match expected shape {self.query.shape}")
-        if key.shape != self.key.shape:
-            raise ValueError(f"Key tensor shape {key.shape} doesn't match expected shape {self.key.shape}")
-        if value.shape != self.value.shape:
-            raise ValueError(f"Value tensor shape {value.shape} doesn't match expected shape {self.value.shape}")
-
-        return super().run(query, key, value)
