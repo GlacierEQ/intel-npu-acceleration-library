@@ -1,3 +1,4 @@
+# DEPRECATED: This historical backup is no longer maintained. Use /intel_npu_acceleration_library/functional/scaled_dot_product_attention.py instead.
 #
 # Copyright © 2024 Intel Corporation
 # SPDX-License-Identifier: Apache 2.0
