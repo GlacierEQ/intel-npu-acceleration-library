@@ -10,3 +10,4 @@ myst-parser
 ghp-import
 pyroma
 mypy
+urllib3>=2.6.3 # not directly required, pinned by Snyk to avoid a vulnerability
